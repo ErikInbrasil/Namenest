@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { detailText, familyHonorText, generatorText, genderLabel, nameCardText, originLabel, popularityText, styleLabel } from '../lib/uiText';
+import { detailText, familyHonorText, generatorText, genderLabel, nameCardText, originLabel, popularityText, speechText, styleLabel } from '../lib/uiText';
 
 describe('localized UI text', () => {
   it('localizes the name-card button, gender, style, origin, and popularity text', () => {
@@ -23,5 +23,11 @@ describe('localized UI text', () => {
     expect(familyHonorText.pt.suggestionsFor('Maria')).toBe('Sugestões para Maria');
     expect(detailText.es.copyPage).toBe('Copiar página');
     expect(detailText.pt.nameMeaningsNotice).toContain('significados dos nomes');
+  });
+
+  it('localizes full-name voice controls', () => {
+    expect(speechText.pt.title).toBe('Ouça o nome completo em voz alta');
+    expect(speechText.en.speak).toBe('Speak full name');
+    expect(speechText.es.voice).toBe('Voz');
   });
 });

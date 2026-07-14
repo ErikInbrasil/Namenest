@@ -6,6 +6,45 @@ export const nameCardText = {
   es: { viewName: 'Ver nombre' },
 } satisfies Record<Language, { viewName: string }>;
 
+export const speechText = {
+  pt: {
+    eyebrow: 'Voz do nome',
+    title: 'Ouça o nome completo em voz alta',
+    intro: 'Digite um nome completo, escolha uma voz disponível no seu navegador e ouça a pronúncia.',
+    fullName: 'Nome completo',
+    voice: 'Voz',
+    defaultVoice: 'Voz padrão do navegador',
+    speak: 'Falar nome completo',
+    stop: 'Parar',
+    unsupported: 'Seu navegador não oferece voz nesta página.',
+    emptyName: 'Digite um nome completo para ouvir.',
+  },
+  en: {
+    eyebrow: 'Name voice',
+    title: 'Hear the full name out loud',
+    intro: 'Type a full name, choose an available browser voice, and hear the pronunciation.',
+    fullName: 'Full name',
+    voice: 'Voice',
+    defaultVoice: 'Browser default voice',
+    speak: 'Speak full name',
+    stop: 'Stop',
+    unsupported: 'Your browser does not offer speech on this page.',
+    emptyName: 'Type a full name to hear it.',
+  },
+  es: {
+    eyebrow: 'Voz del nombre',
+    title: 'Escucha el nombre completo en voz alta',
+    intro: 'Escribe un nombre completo, elige una voz disponible en tu navegador y escucha la pronunciación.',
+    fullName: 'Nombre completo',
+    voice: 'Voz',
+    defaultVoice: 'Voz predeterminada del navegador',
+    speak: 'Decir nombre completo',
+    stop: 'Parar',
+    unsupported: 'Tu navegador no ofrece voz en esta página.',
+    emptyName: 'Escribe un nombre completo para escucharlo.',
+  },
+} satisfies Record<Language, Record<string, string>>;
+
 export const generatorText = {
   pt: {
     eyebrow: 'Gerador inteligente',
