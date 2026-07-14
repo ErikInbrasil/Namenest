@@ -1,10 +1,16 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { localeFromPath, toolLinks } from '@/lib/locale';
 
 export function MobileQuickActions() {
+  const language = localeFromPath(usePathname());
+  const { generator, family } = toolLinks(language);
   return (
-    <div className="mobile-quick-actions" data-testid="mobile-quick-actions" aria-label="Mobile quick actions">
-      <Link data-testid="mobile-generate-action" href="/pt/gerador-de-nomes">Generate</Link>
-      <Link data-testid="mobile-family-action" href="/pt/homenagear-nome-de-familia">Family name</Link>
+    <div className="mobile-quick-actions" data-testid="mobile-quick-actions">
+      <Link href={generator.href} data-testid="mobile-generate-action">{generator.label}</Link>
+      <Link href={family.href} data-testid="mobile-family-action">{family.label}</Link>
     </div>
   );
 }

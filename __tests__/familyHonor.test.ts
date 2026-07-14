@@ -26,4 +26,18 @@ describe('family honor-name suggestions', () => {
     expect(suggestions.middleNameIdeas).toContain('Amelinda');
     expect(suggestions.explanation).toContain('honor');
   });
+
+  it('handles empty or whitespace-only family names without emitting blank suggestions', () => {
+    for (const familyName of ['', '   ']) {
+      const suggestions = suggestFamilyHonorNames({ familyName, relation: 'grandmother', babyGender: 'girl', languages: ['pt'] });
+
+      expect(suggestions.exact.name).toBe('');
+      // No blank/whitespace entries leak into any suggestion list
+      expect(suggestions.middleNameIdeas.every((item) => item.trim().length > 0)).toBe(true);
+      expect(suggestions.compounds.every((item) => item.trim().length > 0)).toBe(true);
+      expect(suggestions.variants.every((item) => item.trim().length > 0)).toBe(true);
+      // The "use exactly" hint should not contain a dangling empty name
+      expect(suggestions.exact.use).not.toMatch(/\s{2,}/);
+    }
+  });
 });

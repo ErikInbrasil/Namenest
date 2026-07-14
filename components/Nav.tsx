@@ -1,15 +1,18 @@
 import Link from 'next/link';
+import type { Language } from '@/lib/types';
+import { LANGUAGE_SWITCH_LABEL, LOCALES, homeHref, toolLinks } from '@/lib/locale';
 
-export function Nav() {
+export function Nav({ language = 'pt' }: { language?: Language }) {
+  const { generator, family } = toolLinks(language);
   return (
     <nav className="nav container">
-      <Link className="logo" href="/">Name<span>Nest</span></Link>
+      <Link className="logo" href={homeHref(language)}>Name<span>Nest</span></Link>
       <div className="nav-links">
-        <Link href="/pt">PT</Link>
-        <Link href="/en">EN</Link>
-        <Link href="/es">ES</Link>
-        <Link href="/pt/gerador-de-nomes">Gerador</Link>
-        <Link href="/pt/homenagear-nome-de-familia">Homenagear família</Link>
+        {LOCALES.map((locale) => (
+          <Link key={locale} href={homeHref(locale)}>{LANGUAGE_SWITCH_LABEL[locale]}</Link>
+        ))}
+        <Link href={generator.href}>{generator.label}</Link>
+        <Link href={family.href}>{family.label}</Link>
       </div>
     </nav>
   );

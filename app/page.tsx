@@ -7,7 +7,7 @@ export default function Home() {
   const featured = getAllNames().filter((name) => name.languages.pt && name.languages.en && name.languages.es).slice(0, 3);
   return (
     <>
-      <Nav />
+      <Nav language="pt" />
       <main>
         <section className="hero container">
           <div>

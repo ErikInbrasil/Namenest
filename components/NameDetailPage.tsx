@@ -17,7 +17,7 @@ export function NameDetailPage({ slug, language }: { slug: string; language: Lan
   const shareText = encodeURIComponent(`Name idea: ${name.name} — ${name.meanings[language]}`);
   return (
     <>
-      <Nav />
+      <Nav language={language} />
       <main className="container section">
         <Link href={`/${language}`} className="pill">← Back to {languageLabel(language)}</Link>
         <section className="hero">

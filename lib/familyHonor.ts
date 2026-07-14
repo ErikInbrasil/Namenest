@@ -48,6 +48,17 @@ function normalize(value: string): string {
 
 export function suggestFamilyHonorNames(input: HonorInput): HonorSuggestions {
   const cleanName = input.familyName.trim();
+
+  if (!cleanName) {
+    return {
+      exact: { name: '', use: 'Enter a family name to see exact, middle-name, compound, and modern variant ideas.' },
+      variants: [],
+      compounds: ['Use a meaningful family name as a middle name', 'Pair a family name with a short modern first name'],
+      middleNameIdeas: ['Family name as a middle name'],
+      explanation: `A respectful way to honor a ${input.relation} is to offer exact, middle-name, compound, and modern variant options so parents can keep the family connection without pressure.`,
+    };
+  }
+
   const key = normalize(cleanName);
   const known = knownHonorNames[key];
   const compounds = input.babyGender === 'boy' ? known?.boyCompounds : known?.girlCompounds;
