@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Language } from '@/lib/types';
-import { LANGUAGE_SWITCH_LABEL, LOCALES, homeHref, toolLinks } from '@/lib/locale';
+import { homeHref, toolLinks } from '@/lib/locale';
+import { LocaleSwitcher } from './LocaleSwitcher';
 
 export function Nav({ language = 'pt' }: { language?: Language }) {
   const { generator, family } = toolLinks(language);
@@ -8,9 +9,7 @@ export function Nav({ language = 'pt' }: { language?: Language }) {
     <nav className="nav container">
       <Link className="logo" href={homeHref(language)}>Name<span>Nest</span></Link>
       <div className="nav-links">
-        {LOCALES.map((locale) => (
-          <Link key={locale} href={homeHref(locale)}>{LANGUAGE_SWITCH_LABEL[locale]}</Link>
-        ))}
+        <LocaleSwitcher />
         <Link href={generator.href}>{generator.label}</Link>
         <Link href={family.href}>{family.label}</Link>
       </div>

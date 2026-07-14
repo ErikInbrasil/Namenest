@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { localeFromPath, toolLinks, homeHref } from '../lib/locale';
+import { localeFromPath, toolLinks, homeHref, localizedPathForLocale } from '../lib/locale';
 
 describe('localeFromPath', () => {
   it('detects the locale from the first path segment', () => {
@@ -42,5 +42,23 @@ describe('homeHref', () => {
     expect(homeHref('en')).toBe('/en');
     expect(homeHref('es')).toBe('/es');
     expect(homeHref('pt')).toBe('/pt');
+  });
+});
+
+describe('localizedPathForLocale', () => {
+  it('keeps users on the equivalent tool page when switching languages', () => {
+    expect(localizedPathForLocale('/en/baby-name-generator', 'pt')).toBe('/pt/gerador-de-nomes');
+    expect(localizedPathForLocale('/pt/gerador-de-nomes', 'en')).toBe('/en/baby-name-generator');
+    expect(localizedPathForLocale('/es/honrar-nombre-familiar', 'en')).toBe('/en/honor-family-name');
+  });
+
+  it('keeps users on the equivalent name detail page when switching languages', () => {
+    expect(localizedPathForLocale('/en/name/sofia', 'pt')).toBe('/pt/nome/sofia');
+    expect(localizedPathForLocale('/pt/nome/helena', 'es')).toBe('/es/nombre/helena');
+  });
+
+  it('falls back to the localized home for unknown or root paths', () => {
+    expect(localizedPathForLocale('/', 'en')).toBe('/en');
+    expect(localizedPathForLocale('/en/not-built-yet', 'es')).toBe('/es');
   });
 });

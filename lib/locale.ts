@@ -51,6 +51,18 @@ export const LANGUAGE_SWITCH_LABEL: Record<Language, string> = {
   es: 'ES',
 };
 
+const GENERATOR_SLUG_TO_LOCALE = Object.fromEntries(
+  Object.entries(GENERATOR_SLUG).map(([locale, slug]) => [slug, locale]),
+) as Record<string, Language>;
+
+const FAMILY_SLUG_TO_LOCALE = Object.fromEntries(
+  Object.entries(FAMILY_SLUG).map(([locale, slug]) => [slug, locale]),
+) as Record<string, Language>;
+
+const NAME_SLUG_TO_LOCALE = Object.fromEntries(
+  Object.entries(NAME_SLUG).map(([locale, slug]) => [slug, locale]),
+) as Record<string, Language>;
+
 /** Locale-correct links to the two core tools. */
 export function toolLinks(language: Language): { generator: ToolLink; family: ToolLink } {
   return {
@@ -62,4 +74,31 @@ export function toolLinks(language: Language): { generator: ToolLink; family: To
 /** Localized home href. */
 export function homeHref(language: Language): string {
   return `/${language}`;
+}
+
+/**
+ * Return the equivalent route in a target locale so switching PT/EN/ES keeps
+ * users on the same kind of page instead of bouncing them back to the homepage.
+ */
+export function localizedPathForLocale(pathname: string | null | undefined, targetLocale: Language): string {
+  const segments = (pathname ?? '').split('/').filter(Boolean);
+  const [, pageSlug, itemSlug] = segments;
+
+  if (segments.length <= 1) {
+    return homeHref(targetLocale);
+  }
+
+  if (pageSlug in GENERATOR_SLUG_TO_LOCALE) {
+    return toolLinks(targetLocale).generator.href;
+  }
+
+  if (pageSlug in FAMILY_SLUG_TO_LOCALE) {
+    return toolLinks(targetLocale).family.href;
+  }
+
+  if (pageSlug in NAME_SLUG_TO_LOCALE && itemSlug) {
+    return `/${targetLocale}/${NAME_SLUG[targetLocale]}/${itemSlug}`;
+  }
+
+  return homeHref(targetLocale);
 }
