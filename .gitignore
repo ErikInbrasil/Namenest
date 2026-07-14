@@ -1,0 +1,10 @@
+node_modules
+.next
+.env*.local
+.vercel
+.DS_Store
+coverage
+
+# test artifacts
+/test-results
+/playwright-report
